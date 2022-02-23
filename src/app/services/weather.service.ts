@@ -19,6 +19,7 @@ export class WeatherService {
 	private buildRequestParams(address: Address) {
 		let params: any = {
 			appid: environment.weatherApiKey,
+			units: 'metric'
 		};
 
 		if (Object.keys(address).length == 2 && address?.name && address.validLength) {

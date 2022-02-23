@@ -1,7 +1,41 @@
-<form #transWeather [formGroup]="weatherForm">
-	<section class="auto-complete">
-		<input id="searchQuery" name="searchQuery" formControlName="searchQuery" type="text"
-		(onAddressChange)="fetchWeatherData($event)"
-		app-places-autocomplete/>
-	</section>
-</form>
+<section class="search">
+	<form #transWeather [formGroup]="weatherForm">
+		<section class="auto-complete">
+			<input id="searchQuery" name="searchQuery" formControlName="searchQuery" type="text"
+			(onAddressChange)="fetchWeatherData($event)"
+			app-places-autocomplete/>
+		</section>
+	</form>
+</section>
+
+<section class="result">
+	<div class="empty" *ngIf="!weatherData">
+		<p>Please select a locaiton first</p>
+		<img src="assets/images/looking.gif">
+	</div>
+
+	<div class="weather-data" *ngIf="weatherData">
+		<div class="data">
+			<div class="name">
+				<h2>{{ weatherData.name }}</h2>
+				<p>{{ today | date }}</p>
+				<img [src]="weatherData.icon"/>
+				<p>{{ weatherData.weather[0].description }}</p>
+			</div>
+			<div class="temps">
+				<div class="temp temp-main">
+					{{ weatherData.main.temp.toFixed(0) }}
+				</div>
+				<div class="min-max">
+					<div class="max temp">
+						{{ weatherData.main.temp_max.toFixed(0) }}
+					</div>
+					<div class="sep">/</div>
+					<div class="min temp">
+						{{ weatherData.main.temp_min.toFixed(0) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
