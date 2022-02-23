@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Address } from 'src/models/address';
 
@@ -9,15 +10,22 @@ import { Address } from 'src/models/address';
 })
 export class TodayComponent implements OnInit {
 	weatherData: any;
+	weatherForm = new FormGroup({
+		searchQuery: new FormControl('', [Validators.maxLength(200)])
+	});
+
 	constructor(private weatherService: WeatherService) {}
 
 	ngOnInit(): void {
 	}
 
 	fetchWeatherData(address: Address) {
-		console.log('changed', address);
-		this.weatherService.getDailyWeather({q: address.name}).subscribe((data) => {
-			console.log(data);
-		});
+		if (address.validLength) {
+			this.weatherService.getDailyWeather(address).subscribe((data) => {
+				console.log(data);
+			});
+		}
 	}
+
+
 }

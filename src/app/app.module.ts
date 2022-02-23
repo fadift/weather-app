@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodayComponent } from './pages/today/today.component';
 import { PlacesAutocompleteDirective } from './directives/places-autocomplete.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { PlacesAutocompleteDirective } from './directives/places-autocomplete.di
   imports: [
     BrowserModule,
     AppRoutingModule,
-	HttpClientModule
+	HttpClientModule,
+	FormsModule,
+	ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

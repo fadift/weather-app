@@ -7,4 +7,5 @@ export interface Address {
     id: string;
 	photos: any;
 	place_id: string;
+	validLength: boolean;
 }
