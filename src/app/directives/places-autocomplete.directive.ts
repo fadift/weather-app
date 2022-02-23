@@ -102,7 +102,6 @@ export class PlacesAutocompleteDirective implements AfterViewInit {
 		this.ngZone.run(() => {
 			this.place = this.autocomplete.getPlace();
 			if (this.place) {
-				this.place.validLength = this.validate(this.place);
 				this.onAddressChange.emit(this.place);
 			}
 		});

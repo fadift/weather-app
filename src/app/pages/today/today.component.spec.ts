@@ -27,20 +27,38 @@ describe('TodayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should search for locations', () => {
-	  let address: Address = {
-		  name: '11',
-		  address_components: {},
-		  formatted_address: '',
-		  geometry: '',
-		  icon: '',
-		  id: '',
-		  photos: '',
-		  place_id: '',
-		  validLength: true
-	  };
-
-	component.weatherForm.controls['searchQuery'].setValue('Lond');
+  it('form should be valid', () => {
+	component.weatherForm.controls['searchQuery'].setValue('London');
+	const address = <Address>{name: component.weatherForm.get('searchQuery')?.value};
+	component.checkAddress(address);
 	expect(component.weatherForm.valid).toBeTruthy();
   });
+
+  it('should fetch weather data', () => {
+	component.weatherForm.controls['searchQuery'].setValue('London');
+	const address = <Address>{name: component.weatherForm.get('searchQuery')?.value};
+	fixture.detectChanges();
+	const fetchWeatherData = spyOn(TodayComponent.prototype, "fetchWeatherData").and.callThrough();
+	component.checkAddress(address);
+	fixture.detectChanges();
+	expect(fetchWeatherData).toHaveBeenCalledWith(address);
+  });
+
+  it('form should be invalid', () => {
+	component.weatherForm.controls['searchQuery'].setValue('London is a nice city that needs a visit, London is a nice city that needs visit, London is a nice city that needs visit, London is a nice city that needs visit, London is nice city that needs visit, London is a nice city that needs a visit');
+	const address = <Address>{name: component.weatherForm.get('searchQuery')?.value};
+	component.checkAddress(address);
+	expect(component.weatherForm.valid).toBeFalsy();
+  });
+
+  it('should not fetch weather data', () => {
+	component.weatherForm.controls['searchQuery'].setValue('London is a nice city that needs a visit, London is a nice city that needs visit, London is a nice city that needs visit, London is a nice city that needs visit, London is nice city that needs visit, London is a nice city that needs a visit');
+	const address = <Address>{name: component.weatherForm.get('searchQuery')?.value};
+	fixture.detectChanges();
+	const fetchWeatherData = spyOn(TodayComponent.prototype, "fetchWeatherData").and.callThrough();
+	component.checkAddress(address);
+	fixture.detectChanges();
+	expect(fetchWeatherData).not.toHaveBeenCalled();
+  });
+
 });

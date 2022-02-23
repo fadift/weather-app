@@ -2,7 +2,7 @@
 	<form #transWeather [formGroup]="weatherForm">
 		<section class="auto-complete">
 			<input id="searchQuery" name="searchQuery" formControlName="searchQuery" type="text"
-			(onAddressChange)="fetchWeatherData($event)"
+			(onAddressChange)="checkAddress($event)"
 			app-places-autocomplete/>
 		</section>
 	</form>
