@@ -1,3 +1,17 @@
+main {
+	width: 600px;
+    margin: 30px auto;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 0 7px #00000036;
+
+	@media screen and (max-width: 600px) {
+		width: 100%;
+		margin: 0 auto;
+		border-radius: 0;
+	}
+}
+
 header {
 	text-align: center;
 

@@ -106,27 +106,4 @@ export class PlacesAutocompleteDirective implements AfterViewInit {
 			}
 		});
 	}
-
-	private validate(place: any): boolean {
-		let maxLength: number = 188;
-
-		if (Object.keys(place).length == 1 && place?.name) {
-			maxLength = this.isPostalCode(place.name) ? 10 : 188;
-		} else if (place?.types && place?.types.includes('postal_code')) {
-			maxLength = 10;
-		}
-
-		if (place?.name.length > maxLength) {
-			return false;
-		}
-
-		return true;
-	}
-
-	private isPostalCode(value: string): boolean {
-		return /^\\d{5}(-{0,1}\\d{4})?$/.test(value) ||
-		/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/.test(value) ||
-		/^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/.test(value) ||
-		/^\\d+$/.test(value);
-	}
 }
